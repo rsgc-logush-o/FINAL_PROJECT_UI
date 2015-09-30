@@ -14,15 +14,19 @@ class Grid
     {
       for (int j = 0; j < 32; j++)
       {
-        if (squares[i][j] == true)
-        {
+       
+        
+        if(grid == true)stroke(48);
+        else if(grid == false)noStroke();
+        
           fill(squaresR[i][j], squaresG[i][j], squaresB[i][j]);
-        } else
-        {
-          fill(0);
-        }
+       
+         
         rect(i*23, j*23, 23, 23);
       }
     }
+    
+   
+    
   }
 }

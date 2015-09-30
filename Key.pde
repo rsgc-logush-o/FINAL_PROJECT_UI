@@ -10,6 +10,9 @@ class Key
         {
           squares[i][j] = false;
           
+          squaresR[i][j] = 0;
+          squaresG[i][j] = 0;
+          squaresB[i][j] = 0;
           
         }
       }
@@ -33,4 +36,17 @@ class Key
       }
     }
   }
+  
+  void fill()
+  {
+    for(int i = 0; i < 32; i++)
+    {
+      for (int j = 0; j < 32; j++)
+      {
+         if(squaresR[i][j] == 0 && squaresG[i][j] == 0 && squaresB[i][j] == 0); 
+      }
+    }
+  }
+  
+  
 }
