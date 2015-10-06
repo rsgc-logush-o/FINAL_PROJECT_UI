@@ -127,7 +127,7 @@ void mousePressed()
  {
  r.readVal  = loadTable(selection.getAbsolutePath(), "header");
  
-  r.read()
+  r.read();
  
 }
 
