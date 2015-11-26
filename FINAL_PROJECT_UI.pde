@@ -1,3 +1,7 @@
+import processing.serial.*;
+
+
+
 //////////////////////////////////////////////////
 //                                              //
 //               OLIVER LOGUSH                  //
@@ -8,7 +12,7 @@
 //                                              //
 //////////////////////////////////////////////////
 
-import processing.serial.*;
+
 
 
 
@@ -40,17 +44,17 @@ Mouse m = new Mouse();//DECLARING THE NEW MOUSE OBJECT
 Colour c = new Colour();//DECLARING THE NEW COLOUR OBJECT
 Save s = new Save();//DECLARING THE NEW SAVE OBJECT
 Read r = new Read();//DECLARING THE NEW READ OBJECT
-Serial ser = new Serial();//DECLARING THE NEW SERIAL OBJECT
+Arduino a = new Arduino();
 
 
 
-
+ 
 
 void setup()
 {
   // selectInput("select", "fileSelected");
   
-  
+ myPort = new Serial(this, Serial.list()[1], 9600);
   
   isOver = new boolean[32][32];//SETTING THE SIZE OF THE isOver TWO DIMENSIONAL ARRAY
   
@@ -95,7 +99,7 @@ void setup()
     }
   }
  
-   
+   myPort.bufferUntil('\n');
 }
 
 
@@ -105,7 +109,7 @@ void draw()
 {
   g.update();//CALLING ON THE UPDATE FUNCTION IN THE G OBJECT OF THE GRID CLASS
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
-  
+  a.update();
   
   
 }
