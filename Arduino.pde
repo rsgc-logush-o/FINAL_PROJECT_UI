@@ -1,31 +1,49 @@
 class Arduino
 {
-  int prevMillis;
-  int currMillis;
+  
  void update()
  {
-
    
-     myPort.write('R');
-     if(myPort.read() == 'R')
-     {
+   
+
+   //if(currMillis - prevMillis > 34)
+   
+     myPort.clear();
+     myPort.write('S');
+     while(myPort.read() != '\n')println(4);
+     
       for(int i = 0; i < 32; i++)
       {
        for(int j = 0; j < 32; j++)
        {
-         myPort.clear();
+        myPort.clear();
+        myPort.write('R');
+        
+        while(myPort.read() != '\n')println(5);
+        myPort.clear();
         myPort.write(squaresR[i][j]);
-        myPort.bufferUntil('\n');
+       
+        while(myPort.read() != '\n')println(6) ;
+         myPort.clear();
+        myPort.write('G');
+        
+        while(myPort.read() != '\n')println(7);
         myPort.clear();
         myPort.write(squaresG[i][j]);
-        myPort.bufferUntil('\n');
-         myPort.clear();
+        
+        while(myPort.read() != '\n')println(8);
+        myPort.clear();
+        myPort.write('B');
+        
+        while(myPort.read() != '\n')println(9);
+        myPort.clear();
         myPort.write(squaresB[i][j]);
-        myPort.bufferUntil('\n');
-       }
-     }
-    }
-    
-   
+        while(myPort.read() != '\n')println(10);
+        
+       }    
+      }
+
+
+
  }
 }

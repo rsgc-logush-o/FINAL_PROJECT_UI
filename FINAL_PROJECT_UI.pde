@@ -47,14 +47,15 @@ Read r = new Read();//DECLARING THE NEW READ OBJECT
 Arduino a = new Arduino();
 
 
-
+int prevMillis = 0;
+  int currMillis = 0;
  
 
 void setup()
 {
   // selectInput("select", "fileSelected");
   
- myPort = new Serial(this, Serial.list()[1], 9600);
+ 
   
   isOver = new boolean[32][32];//SETTING THE SIZE OF THE isOver TWO DIMENSIONAL ARRAY
   
@@ -98,8 +99,12 @@ void setup()
       isOver[i][j] = false;
     }
   }
+  
+  myPort = new Serial(this, Serial.list()[2], 9600);
  
-   myPort.bufferUntil('\n');
+  while(myPort.read() != '\n');
+   myPort.write('R');
+   println(Serial.list()[2]);
 }
 
 
@@ -109,8 +114,14 @@ void draw()
 {
   g.update();//CALLING ON THE UPDATE FUNCTION IN THE G OBJECT OF THE GRID CLASS
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
+ currMillis = millis();
+ println(1);
+  if(currMillis - prevMillis > 100)
+  {
+    println(2);
   a.update();
-  
+  prevMillis = millis();
+  }
   
 }
 
