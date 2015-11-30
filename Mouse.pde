@@ -7,13 +7,13 @@ class Mouse
     //THE COLOUR SELECTOR
     if (mouseX < 776 && mouseX > 756 && mouseY < 455 && mouseY > 200)
     {
-      colours[0] = int(map(mouseY, 200, 455, 0, 255));
+      colours[0] = int(map(mouseY, 201, 454, 0, 15));
     } else if (mouseX < 816 && mouseX > 796 && mouseY < 455 && mouseY > 200 )
     {
-      colours[1] = int(map(mouseY, 200, 455, 0, 255));
+      colours[1] = int(map(mouseY, 201, 454, 0, 15));
     } else if (mouseX < 856 && mouseX > 836 && mouseY < 455 && mouseY > 200)
     {
-      colours[2] = int(map(mouseY, 200, 455, 0, 255));
+      colours[2] = int(map(mouseY, 201, 454, 0, 15));
     }
 
     if (mouseX > 756 && mouseX < 856 && mouseY > 600 && mouseY < 620)

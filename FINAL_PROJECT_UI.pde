@@ -100,11 +100,10 @@ void setup()
     }
   }
   
-  myPort = new Serial(this, Serial.list()[2], 9600);
+  myPort = new Serial(this, Serial.list()[1], 9600);
  
-  while(myPort.read() != '\n');
-   myPort.write('R');
-   println(Serial.list()[2]);
+  myPort.bufferUntil('\n');
+   println(Serial.list()[1]);
 }
 
 
@@ -116,7 +115,7 @@ void draw()
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
  currMillis = millis();
  println(1);
-  if(currMillis - prevMillis > 100)
+  if(currMillis - prevMillis > 1000)
   {
     println(2);
   a.update();
