@@ -65,7 +65,7 @@ class Mouse
       int ySquareOver = int(map(mouseY, 0, height, 0, 32));
       ySquareOver  = constrain(ySquareOver, 0, 32);
 
-
+        sendNew = true;
 
         //THIS LOOP IS FOR COVERING THE AREA THAT THE BRUSH SIZE DICTATES
         for (int i = 0; i < brushSize; i++)

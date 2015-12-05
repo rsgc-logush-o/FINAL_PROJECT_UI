@@ -20,6 +20,7 @@ import processing.serial.*;
 boolean[][] squares; //THIS IS THE MULTIDIMENSIONAL ARRAY OF BOOLEANS TO KNOW IF THE SQUARES IN THE DISPLAY ARE ON OR OFF
 
 int[] colours; //THE COLOUR VALUES FOR EACH R G B OF THE COLOUR SELECTION SLIDERS
+boolean sendNew = false;
 int[][] squaresR;//A MULTIDIMENSIONAL ARRAY CONTAINING THE RED VALUE (0-255) OF EACH SQUARE
 int[][] squaresG;//A MULTIDIMENSIONAL ARRAY CONTAINING THE GREEN VALUE (0-255) OF EACH SQUARE
 int[][] squaresB;//A MULTIDIMENSIONAL ARRAY CONTAINING THE BLUE VALUE (0-255) OF EACH SQUARE
@@ -100,7 +101,7 @@ void setup()
     }
   }
   
-  myPort = new Serial(this, Serial.list()[2], 9600);
+  myPort = new Serial(this, Serial.list()[1], 9600);
  
   myPort.bufferUntil('\n');
    println(Serial.list()[1]);
@@ -114,12 +115,12 @@ void draw()
   g.update();//CALLING ON THE UPDATE FUNCTION IN THE G OBJECT OF THE GRID CLASS
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
  currMillis = millis();
- println(1);
-  if(currMillis - prevMillis > 1000)
+
+  if(sendNew == true)
   {
-    println(2);
+
   a.update();
-  prevMillis = millis();
+  sendNew = false;
   }
   
 }
@@ -137,6 +138,7 @@ void keyPressed()
 void mouseDragged()
 {
    m.update();//CALL ON THE UPDATE FUNCTION OF THE M OBJECT OF THE MOUSE CLASS IF THE MOUSE IS DRAGGED
+   println("dragged");
 }
 
 void mousePressed()
