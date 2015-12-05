@@ -20,19 +20,19 @@ class Arduino
           {
              case 0:
              
-               myPort.write(squaresR[i][j]);
+               myPort.write((byte)squaresR[i][j]);
                
                break;
                
              case 1:
              
-               myPort.write(squaresG[i][j]);
+               myPort.write((byte)squaresG[i][j]);
                
                break;
                
              case 2:
              
-               myPort.write(squaresB[i][j]);
+               myPort.write((byte)squaresB[i][j]);
                
              break;
           }

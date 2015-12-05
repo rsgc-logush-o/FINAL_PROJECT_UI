@@ -100,7 +100,7 @@ void setup()
     }
   }
   
-  myPort = new Serial(this, Serial.list()[1], 9600);
+  myPort = new Serial(this, Serial.list()[2], 9600);
  
   myPort.bufferUntil('\n');
    println(Serial.list()[1]);
