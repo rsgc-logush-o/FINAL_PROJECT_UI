@@ -116,11 +116,12 @@ void draw()
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
  currMillis = millis();
 
-  if(sendNew == true)
+  if(sendNew == true && currMillis - prevMillis > 500)
   {
 
   a.update();
   sendNew = false;
+  prevMillis = millis();
   }
   
 }
