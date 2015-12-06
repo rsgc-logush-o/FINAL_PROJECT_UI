@@ -38,7 +38,7 @@ boolean grid = true;//TO KNOW WHETHER TO HAVE A GRID OVERLAY OR NOT
 int brushSize = 1;//THE SIZE OF THE BRUSH (0-10px)
 
 Serial myPort;//THE SERIAL COMMUNICATION OBJECT
-
+Text t = new Text();
 Grid g = new Grid();//DECLARING THE NEW GRID OBJECT
 Key k = new Key();//DECLARING THE NEW KEY OBJECT
 Mouse m = new Mouse();//DECLARING THE NEW MOUSE OBJECT
@@ -104,7 +104,7 @@ void setup()
   myPort = new Serial(this, Serial.list()[1], 9600);
  
   myPort.bufferUntil('\n');
-   println(Serial.list()[1]);
+  println(Serial.list()[1]);
 }
 
 
@@ -114,8 +114,8 @@ void draw()
 {
   g.update();//CALLING ON THE UPDATE FUNCTION IN THE G OBJECT OF THE GRID CLASS
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
- currMillis = millis();
-
+ //currMillis = millis();
+currMillis = millis();
   if(sendNew == true && currMillis - prevMillis > 500)
   {
 
@@ -130,7 +130,8 @@ void keyPressed()
 {
   if(key == 's' || key == 'S')selectOutput("select", "outSelect"); //IF THE KEY IS S CALL ON THE outSelect FUNCTION WITH THE PARAMETERS OF THE FILE YOU SELECTED AFTER THE POP UP WINOW TO SELECT A FILE TO SAVE TO
   if(key == 'r' || key == 'R')selectInput("select", "fileSelect"); //IF THE KEY IS R CALL ON THE fileSelect FUNCTION WITH THE PARAMETERS OF THE FILE YOU SELECTED AFTER THE POP UP WINOW TO SELECT A FILE TO READ FROM
-  
+  if(key == CODED);
+  else t.type(key);
   k.update(key);//CALL ON THE UPDATE FUNCTION OF THE K OBJECT OF THE KEY CLASS WITH THE PARAMETER OF THE KEY THAT YOU PRESSED
 }
 
