@@ -15,7 +15,7 @@ import processing.serial.*;
 
 
 
-
+SecondWindow image;
 
 boolean[][] squares; //THIS IS THE MULTIDIMENSIONAL ARRAY OF BOOLEANS TO KNOW IF THE SQUARES IN THE DISPLAY ARE ON OR OFF
 
@@ -29,34 +29,47 @@ Table save2Table;//THIS IS A TABLE OBJECT THAT WILL BE USED TO SAVE TO A .CSV FI
 TableRow[][] saveRow;//A MULTIDIMENSIONAL ARRAY OF VALUES OF THE R G B OF EACH SQUARE TO SAVE TO THE .CSV
 TableRow[][] readRow;//A MULTIDIMENSIONAL ARRAY OF VALUES OF THE R G B OF EACH SQUARE TO READ FROM THE .CSV
 
-boolean bucket = false;//TO KNOW WHETHER THE FILL TOOL IS ENABLED OR NOT
+//boolean bucket = false;//TO KNOW WHETHER THE FILL TOOL IS ENABLED OR NOT
 
-boolean eraser = false;//TO KNOW WHETEHR THE ERASER TOOL IS ENABLED OR NOT
+//boolean eraser = false;//TO KNOW WHETEHR THE ERASER TOOL IS ENABLED OR NOT
 
-boolean grid = true;//TO KNOW WHETHER TO HAVE A GRID OVERLAY OR NOT
+//boolean grid = true;//TO KNOW WHETHER TO HAVE A GRID OVERLAY OR NOT
 
 int brushSize = 1;//THE SIZE OF THE BRUSH (0-10px)
 
 Serial myPort;//THE SERIAL COMMUNICATION OBJECT
 Text t = new Text();
 Grid g = new Grid();//DECLARING THE NEW GRID OBJECT
-Key k = new Key();//DECLARING THE NEW KEY OBJECT
+
 Mouse m = new Mouse();//DECLARING THE NEW MOUSE OBJECT
 Colour c = new Colour();//DECLARING THE NEW COLOUR OBJECT
 Save s = new Save();//DECLARING THE NEW SAVE OBJECT
 Read r = new Read();//DECLARING THE NEW READ OBJECT
 Arduino a = new Arduino();
 
+Tools bucket;
+Tools eraser;
+Tools loadPhoto;
+Tools clear;
+Tools grid;
+Tools readFile;
+Tools saveFile;
 
 int prevMillis = 0;
   int currMillis = 0;
  
 
-void setup()
+void settings()
 {
-  // selectInput("select", "fileSelected");
+   //selectInput("select", "fileSelected");
   
- 
+  bucket = new Tools("bucketTrue.png", "bucketFalse.png", 796, 700, false, false);
+  eraser = new Tools("eraserTrue.png", "eraserFalse.png", 756, 700, true, false);
+  loadPhoto = new Tools("readPhotoTrue.png", "readPhotoFalse.png", 756, 60, true, false);
+  clear = new Tools("clearTrue.png", "clearFalse.png", 836, 700, false, false);
+  grid = new Tools("gridTrue.png", "gridFalse.png", 756, 20, true, true);
+  readFile = new Tools("readTrue.png", "readFalse.png", 796, 60, false, false);
+  saveFile = new Tools("saveTrue.png", "saveFalse.png", 836, 60, false, false);
   
   isOver = new boolean[32][32];//SETTING THE SIZE OF THE isOver TWO DIMENSIONAL ARRAY
   
@@ -114,6 +127,16 @@ void draw()
 {
   g.update();//CALLING ON THE UPDATE FUNCTION IN THE G OBJECT OF THE GRID CLASS
   c.update();//CALLING ON THE UPDATE FUNCTION IN THE C OBJECT OF THE COLOUR CLASS
+  
+  bucket.update();
+  eraser.update();
+  loadPhoto.update();
+  readFile.update();
+  saveFile.update();
+  clear.update();
+  grid.update();
+  
+  //tool.update();
  //currMillis = millis();
 currMillis = millis();
   if(sendNew == true && currMillis - prevMillis > 500)
@@ -128,11 +151,10 @@ currMillis = millis();
 
 void keyPressed()
 {
-  if(key == 's' || key == 'S')selectOutput("select", "outSelect"); //IF THE KEY IS S CALL ON THE outSelect FUNCTION WITH THE PARAMETERS OF THE FILE YOU SELECTED AFTER THE POP UP WINOW TO SELECT A FILE TO SAVE TO
-  if(key == 'r' || key == 'R')selectInput("select", "fileSelect"); //IF THE KEY IS R CALL ON THE fileSelect FUNCTION WITH THE PARAMETERS OF THE FILE YOU SELECTED AFTER THE POP UP WINOW TO SELECT A FILE TO READ FROM
+  
   if(key == CODED);
   else t.type(key);
-  k.update(key);//CALL ON THE UPDATE FUNCTION OF THE K OBJECT OF THE KEY CLASS WITH THE PARAMETER OF THE KEY THAT YOU PRESSED
+  
 }
 
 
@@ -160,4 +182,11 @@ void mousePressed()
 void outSelect(File selection)
 {
   s.saveToTable(selection.getAbsolutePath());//CALLING THE saveToTable FUNCTION OF THE S OBJECT IN THE SAVE CLASS WITH THE PARAMETERS OF THE FILE PATH OF THE FILE THE USER SELECTED TO READ FROM
+}
+
+void photoSelect(File selection)
+{
+   image = new SecondWindow(selection.getAbsolutePath());
+   String[] args = {"Photo Viewer"};
+   PApplet.runSketch(args, image); 
 }

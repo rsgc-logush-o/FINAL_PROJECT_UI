@@ -37,23 +37,36 @@ class Mouse
     }
 
 
-    //THIS IS FOR THE BRUSH SIZE SELECTOR IT CHECKS IF THE MOUSE IS WITHIN THE BRUSHSIZE SELECTOR BOX
-    if (mouseX > 756 && mouseX < 856 && mouseY > 600 && mouseY < 620)
-    {
-      brushSize = int(map(mouseX, 756, 850, 1, 10));//THIS MAPS THE BRUSHSIZE VALUE (1 - 10) TO THE VALUE OF THE MOUSE ALONG THE BRUSHSIZE SLIDER
-    }
+    ////THIS IS FOR THE BRUSH SIZE SELECTOR IT CHECKS IF THE MOUSE IS WITHIN THE BRUSHSIZE SELECTOR BOX
+    //if (mouseX > 756 && mouseX < 856 && mouseY > 600 && mouseY < 620)
+    //{
+    //  brushSize = int(map(mouseX, 756, 850, 1, 10));//THIS MAPS THE BRUSHSIZE VALUE (1 - 10) TO THE VALUE OF THE MOUSE ALONG THE BRUSHSIZE SLIDER
+    //}
     
-    //THIS IS FOR SELECTING THE ERASER CHECKBOX IT CHECKS IF THE MOUSE IS OVER THE ERASER AND IT WILL INVERT THE CURRENT ERASER STATE
-    if(mouseX > 756 && mouseX < 776 && mouseY > 700 && mouseY < 720)eraser =! eraser;
+    ////THIS IS FOR SELECTING THE ERASER CHECKBOX IT CHECKS IF THE MOUSE IS OVER THE ERASER AND IT WILL INVERT THE CURRENT ERASER STATE
+    //if(mouseX > 756 && mouseX < 786 && mouseY > 700 && mouseY < 730)eraser =! eraser;
     
-    //CHECKING IF THE MOUSE IS OVER THE BUCKET CHECKBOX IF IT IS IT WILL INVERT THE CURRENT BUCKET STATE
-    if(mouseX > 796 && mouseX < 816 && mouseY > 700 && mouseY < 720) bucket =! bucket;
+    ////CHECKING IF THE MOUSE IS OVER THE BUCKET CHECKBOX IF IT IS IT WILL INVERT THE CURRENT BUCKET STATE
+    //if(mouseX > 796 && mouseX < 826 && mouseY > 700 && mouseY < 730) bucket =! bucket;
     
-    //THIS IS FOR THE GRID TOOL. IF THE MOUSE IS OVER THE GRID SELECTOR IT WILL INVERT IT'S STATE
-    if(mouseX > 756 && mouseX < 776 && mouseY > 20 && mouseY < 40)grid =! grid;
+    ////THIS IS FOR THE GRID TOOL. IF THE MOUSE IS OVER THE GRID SELECTOR IT WILL INVERT IT'S STATE
+    //if(mouseX > 756 && mouseX < 786 && mouseY > 20 && mouseY < 50)grid =! grid;
     
-   
-
+       if(grid.isTouching())grid.whichState =! grid.whichState;
+       if(eraser.isTouching())eraser.whichState =! eraser.whichState;
+       if(loadPhoto.isTouching())
+       {
+         loadPhoto.whichState =! loadPhoto.whichState;
+         if(loadPhoto.whichState == true)
+         {
+           selectInput("select", "photoSelect");
+         }
+         
+       }
+       if(clear.isTouching())setDisplay(0, 0, 0, false);
+       if(bucket.isTouching())setDisplay(colours[0], colours[1], colours[2], true);
+       if(readFile.isTouching())selectInput("select", "fileSelect");
+       if(saveFile.isTouching())selectOutput("select", "outSelect");
 
     //THE SQUARE CLICKING
     //THIS CHECKS THAT THE MOUSE IS WITHIN THE CANVAS
@@ -76,7 +89,7 @@ class Mouse
           
           
           //THIS IS IF THE ERASER IS NOT ON, IT WILL DRAW NORMALLY
-          if(xSquareOver + j < 32 && ySquareOver + i < 32 && eraser == false)
+          if(xSquareOver + j < 32 && ySquareOver + i < 32 && eraser.whichState == false)
           {
           
           squares[xSquareOver + j][ySquareOver + i] = true;
@@ -88,7 +101,7 @@ class Mouse
           
           
           //THIS IS FOR IF THE ERASER IS ON, IT WILL ERASE THE PIXELS THAT THE BRUSH GOES OVER
-          }else if(xSquareOver + j < 32 && ySquareOver + i < 32 && eraser == true){
+          }else if(xSquareOver + j < 32 && ySquareOver + i < 32 && eraser.whichState == true){
             
             
              squares[xSquareOver + j][ySquareOver + i] = false;
@@ -104,48 +117,28 @@ class Mouse
           }
           
         }
-        //THIS IS THE BUCKET TOOL FOR FILLING, IT IS STILL UNDER CONSTRUCTION
-        if(bucket == true)
-        {
-          
         
-          for(int i = 0; i < 32; i++)
-          {
-           for (int j = 0; j < 32; j++)
-           {
-               //check around each pixel              
-               
-               if(squares[i][j] == true)
-               {
-                
-               
-                 
-                 for (int l = j; l < 32; l++)
-                 {
-                   
-                   if(squares[i][l] == true)
-                   {
-                     for(int c = j; c <= l; c++)
-                     {
-                       
-                       if(squares[i][c] == false)
-                       {
-                       squares[i][c] = true;
-                       
-                       squaresR[i][c] = colours[0];
-                       squaresG[i][c] = colours[1];
-                       squaresB[i][c] = colours[2];
-                       }
-                     }
-                   }
-                  
-                 }
-                 
-               }
-           }
-          }
-        }
+       
       
+    }
+  }
+  
+  void setDisplay(int red, int green, int blue, boolean pixelState)
+  {
+    for(int i = 0; i < 32; i++)
+    {
+     for(int j = 0; j < 32; j++)
+     {
+       
+      sendNew = true;
+       
+       
+      squares[i][j] = pixelState;
+      
+      squaresR[i][j] = red;
+      squaresG[i][j] = green;
+      squaresB[i][j] = blue;
+     }
     }
   }
   

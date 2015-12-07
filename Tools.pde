@@ -1,44 +1,38 @@
 class Tools
 {
-  int eraserX;
-  int eraserY;
-  int gridX;
-  int gridY;
-  int bucketX;
-  int bucketY;
-  boolean eraser;
-  boolean grid;
-  boolean bucket;
+  PImage toolImageTrue;
+  PImage toolImageFalse;
+  int toolX, toolY;
+  boolean isStatic;
+  boolean whichState;
+  Tools(String locationTrue, String locationFalse, int toolX_, int toolY_, boolean isStatic_, boolean whichState_)
+  {
+   toolImageTrue = loadImage(locationTrue);
+   toolImageFalse = loadImage(locationFalse);
+   toolX = toolX_;
+   toolY = toolY_;
+   isStatic = isStatic_;
+   whichState = whichState_;
+  }
   
- Tools(int gridX_, int gridY_, int bucketX_, int bucketY_, int eraserX_, int eraserY_)
- {
-   eraserX = eraserX_;
-   eraserY = eraserY_;
-   gridX = gridX_;
-   gridY = gridY_;
-   bucketX = bucketX_;
-   bucketY = bucketY_;
- }
- 
-   void update()
-   {
-     drawEraser();
-     drawGrid();
-     drawBucket();
-   }
-   
-   private void drawEraser()
-   {
-     
-   }
-   
-   private void drawGrid()
-   {
-     
-   }
-   
-   private void drawBucket()
-   {
-     
-   }
+  void update()
+  {
+    if(isStatic == false)
+    {
+      
+      if(isTouching() == true) image(toolImageTrue, toolX, toolY, 30, 30);
+      else image(toolImageFalse, toolX, toolY, 30, 30);
+      
+    }else
+    {
+      if(whichState == false) image(toolImageFalse, toolX, toolY, 30, 30);
+      else image(toolImageTrue, toolX, toolY, 30, 30);
+    }
+  }
+  
+  boolean isTouching()
+  {
+    if(mouseX < toolX + 30 && mouseX > toolX && mouseY < toolY + 30 && mouseY > toolY) return true;
+    else return false;
+  }
 }
