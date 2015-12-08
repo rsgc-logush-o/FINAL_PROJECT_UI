@@ -61,15 +61,15 @@ public void draw()
          blueAvg += 0;
          }else{
          
-         redAvg += (int)red(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)])/17;
-         greenAvg += (int)green(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)])/17;
-         blueAvg += (int)blue(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)])/17;
+         redAvg += (int)red(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)]);
+         greenAvg += (int)green(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)]);
+         blueAvg += (int)blue(imageToDisplay.pixels[(mouseY*imageToDisplay.width + mouseX) + (i * sizeOfSelector*imageToDisplay.width + j * sizeOfSelector) + (k * imageToDisplay.width + h)]);
          }
        }
      }
-     squaresR[j][i] = redAvg/sizeOfSelector;
-     squaresG[j][i] = greenAvg/sizeOfSelector;
-     squaresB[j][i] = blueAvg/sizeOfSelector;
+     squaresR[j][i] = redAvg/(sizeOfSelector*sizeOfSelector)/17;
+     squaresG[j][i] = greenAvg/(sizeOfSelector*sizeOfSelector)/17;
+     squaresB[j][i] = blueAvg/(sizeOfSelector*sizeOfSelector)/17;
    }
   }
  }

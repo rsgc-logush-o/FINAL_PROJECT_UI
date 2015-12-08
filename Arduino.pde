@@ -20,19 +20,19 @@ class Arduino
           {
              case 0:
              
-               myPort.write((byte)squaresR[i][j]);
+               myPort.write((byte)gamma[squaresR[i][j]]);
                
                break;
                
              case 1:
              
-               myPort.write((byte)squaresG[i][j]);
+               myPort.write((byte)gamma[squaresG[i][j]]);
                
                break;
                
              case 2:
              
-               myPort.write((byte)squaresB[i][j]);
+               myPort.write((byte)gamma[squaresB[i][j]]);
                
              break;
           }
@@ -43,4 +43,8 @@ class Arduino
 
 
  }
+ 
+ int gamma[] = {
+    0,  0,  0,  0,  0,  1,  1,  2,  3,  4,  5,  6,  8, 10, 12, 15 };
+
 }
