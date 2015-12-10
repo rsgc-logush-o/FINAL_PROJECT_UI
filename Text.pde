@@ -1,109 +1,118 @@
+//This is the text class
+//It is responsible for taking keyboard input and outputing it as characters on the display
+//It is called in the keyPressed function
+
 class Text
 {
+  //These are the coordinates for where the cursor is on the display
   int cursorX = 0;
   int cursorY = 0;
+
+  //This array holds the width of each standard visible ASCII character (32 - 126), it is used to move the cursor over the correct amount of spaces after each character is displayed
   int charWidth[] =
-{
-  4,//SPACE
-  1,//!
-  2,//"
-  5,//#
-  5,//$
-  5,//%
-  5,//&
-  1,//'
-  2,//(
-  2,//)
-  4,//*
-  5,//+
-  2,//,
-  5,//-
-  1,//.
-  5,///
-  5,//0
-  5,//1
-  5,//2
-  5,//3
-  5,//4
-  5,//5
-  5,//6
-  5,//7
-  5,//8
-  5,//9
-  1,//:
-  2,//;
-  3,//<
-  5,//=
-  3,//>
-  5,//?
-  5,//@
-  5,//A
-  5,//B
-  5,//C
-  5,//D
-  5,//E
-  5,//F
-  5,//G
-  5,//H
-  5,//I
-  5,//J
-  5,//K
-  5,//L
-  5,//M
-  5,//N
-  5,//O
-  5,//P
-  5,//Q
-  5,//R
-  5,//S
-  5,//T
-  5,//U
-  5,//V
-  5,//W
-  5,//X
-  5,//Y
-  5,//Z
-  2,//[
-  5,//\
-  2,//]
-  3,//^
-  5,//_
-  2,//`
-  5,//a
-  5,//b
-  5,//c
-  5,//d
-  5,//e
-  5,//f
-  5,//g
-  5,//h
-  5,//i
-  5,//j
-  5,//k
-  5,//l
-  5,//m
-  5,//n
-  5,//o
-  5,//p
-  5,//q
-  5,//r
-  5,//s
-  5,//t
-  5,//u
-  5,//v
-  5,//w
-  5,//x
-  5,//y
-  5,//z
-  3,//{
-  1,//|
-  3,//}
-  4//~
-  
-  
-};
+    {
+    4, //SPACE
+    1, //!
+    2, //"
+    5, //#
+    5, //$
+    5, //%
+    5, //&
+    1, //'
+    2, //(
+    2, //)
+    4, //*
+    5, //+
+    2, //,
+    5, //-
+    1, //.
+    5, ///
+    5, //0
+    5, //1
+    5, //2
+    5, //3
+    5, //4
+    5, //5
+    5, //6
+    5, //7
+    5, //8
+    5, //9
+    1, //:
+    2, //;
+    3, //<
+    5, //=
+    3, //>
+    5, //?
+    5, //@
+    5, //A
+    5, //B
+    5, //C
+    5, //D
+    5, //E
+    5, //F
+    5, //G
+    5, //H
+    5, //I
+    5, //J
+    5, //K
+    5, //L
+    5, //M
+    5, //N
+    5, //O
+    5, //P
+    5, //Q
+    5, //R
+    5, //S
+    5, //T
+    5, //U
+    5, //V
+    5, //W
+    5, //X
+    5, //Y
+    5, //Z
+    2, //[
+    5, //\
+    2, //]
+    3, //^
+    5, //_
+    2, //`
+    5, //a
+    5, //b
+    5, //c
+    5, //d
+    5, //e
+    5, //f
+    5, //g
+    5, //h
+    5, //i
+    5, //j
+    5, //k
+    5, //l
+    5, //m
+    5, //n
+    5, //o
+    5, //p
+    5, //q
+    5, //r
+    5, //s
+    5, //t
+    5, //u
+    5, //v
+    5, //w
+    5, //x
+    5, //y
+    5, //z
+    3, //{
+    1, //|
+    3, //}
+    4//~
+
+
+  };
+
+  //This 3 dimensional boolean array holds the bitmap for each character.
   boolean[][][] characters =
-  {
+    {
     {//SPACE
       {false, false, false, false, false}, 
       {false, false, false, false, false}, 
@@ -1057,33 +1066,39 @@ class Text
     }
 
   };
-  
-  
+
+  //The type function which is called in the keyPressed function. It's parameter is the key that was typed
   void type(char key)
   {
-    
+    //Setting the public boolean sendNew to true. This notifies the program that there is new information to send to the display
     sendNew = true;
-    if(charWidth[key - 32] + cursorX > 31)
+
+    //If the character width + the cursorX location is wider than the display move the cursor to the next line
+    if (charWidth[key - 32] + cursorX > 31)
     {
-     cursorX = 0;
-     cursorY += 9;
+      cursorX = 0;
+      cursorY += 9;
     }
-    for(int i = 0; i < 8; i++)
+
+    //These for loops are for putting the characters on the display
+    for (int i = 0; i < 8; i++)
     {
-     for(int j = 0; j < charWidth[key - 32]; j++)
-     {
-      squares[j + cursorX][i + cursorY] = characters[key - 32][i][j]; 
-      if(characters[key - 32][i][j] == true)
+      for (int j = 0; j < charWidth[key - 32]; j++)
       {
-      squaresR[j + cursorX][i + cursorY] = colours[0]; 
-      squaresG[j + cursorX][i + cursorY] = colours[1]; 
-      squaresB[j + cursorX][i + cursorY] = colours[1]; 
+        //Setting the squares to the value in the boolean array for the character
+        squares[j + cursorX][i + cursorY] = characters[key - 32][i][j]; 
+
+        //This sets the appropriate squares to the colour in the colour selector
+        if (characters[key - 32][i][j] == true)
+        {
+          squaresR[j + cursorX][i + cursorY] = colours[0]; 
+          squaresG[j + cursorX][i + cursorY] = colours[1]; 
+          squaresB[j + cursorX][i + cursorY] = colours[1];
+        }
       }
-     }
     }
-    
+
+    //Moving the cursor over the width of the character + 1 to have a space between the characters
     cursorX += charWidth[key - 32] + 1;
   }
-  
- 
 }

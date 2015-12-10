@@ -1,32 +1,25 @@
-//THIS IS THE GRID CLASS
-//IT IS RESPONSIBLE FOR UPDATING THE DRAWING CANVAS OF THE DISPLAY
+//This is the grid class
+//It is responsible for displaying all of the squares in the canvas
 
 class Grid
 {
-
-
-
-
-
-  void update()//THE UPDATE FUNCTION OF THE GRID CLASS WITH NO PARAMETERS
+  //This is the update function for the grid class, it is called every loop
+  void update()
   {
-    for (int i = 0; i < 32; i++)//A FOR LOOP LOOPING THROUGH THE X COORDINATE OF EACH SQUARE
+    //This loop loops through each square in the array and displays it
+    for (int i = 0; i < 32; i++)
     {
-      for (int j = 0; j < 32; j++)//A FOR LOOP LOOPING THROUGH THE Y COORDINATE OF EACH SQUARE
+      for (int j = 0; j < 32; j++)
       {
-       
-        
-        if(grid.whichState == true)stroke(48);//CHECKING IF THE GRID BOX IS CHECKED AND IF IT IS IT IS SETTING THE STROKE SIZE TO 48 TO SHOW THE GRID LINES
-        else if(grid.whichState == false)noStroke();//IF THE GRID IS NOT CHECKED IT SETS NO STROKE SO THERE IS NO BORDER ON EACH OF THE SQUARES MEANING NO GRID
-        
-          fill(squaresR[i][j] * 17, squaresG[i][j] * 17, squaresB[i][j] * 17);//SETTING THE FILL OF THE RECTANGLE TO DISPLAY THE BRUSH COLOUR
-       
-         
-        rect(i*23, j*23, 23, 23);//DRAWING THE RECTANGLE TO SHOW THE BRUSH COLOUR
+
+        //Checking if the grid tool is true, if so there will be grid lines on the canvas. If not there will not be any grid lines
+        if (grid.whichState == true)stroke(48);
+        else if (grid.whichState == false)noStroke();
+
+        //Filling the square that will be displayed with it R, G, and B value from the array. They are multiplied by 17 because they are saved as 4 bit colour which is sent to the display but displayed as 8 bit colour on the canvas
+        fill(squaresR[i][j] * 17, squaresG[i][j] * 17, squaresB[i][j] * 17);
+        rect(i*23, j*23, 23, 23);
       }
     }
-    
-   
-    
   }
 }
